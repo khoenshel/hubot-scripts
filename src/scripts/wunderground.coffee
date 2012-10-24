@@ -36,6 +36,10 @@ module.exports = (robot) ->
     location = msg.match[2]
     get_data robot, msg, location, 'webcams', location.replace(/\s/g, '_'), send_webcam, 60*30
 
+  robot.respond /tomorrow (me|at|for|in)? ?(.*)$/i, (msg) ->
+    location = msg.match[2]
+    get_data robot, msg, location, 'tomorrow', location.replace(/\s/g, '_'), send_webcam, 60*30
+
 # check cache, get data, store data, invoke callback.
 get_data = (robot, msg, location, service, query, cb, lifetime, stack=0) ->
   # what redis key to use
@@ -87,6 +91,10 @@ get_data = (robot, msg, location, service, query, cb, lifetime, stack=0) ->
 
 send_forecast = (msg, location, data) ->
   report = data.forecast.txt_forecast.forecastday[0]
+  msg.send "#{report.title} in #{location}: #{report.fcttext} (#{formatted_ttl data})"
+
+send_tomorrow = (msg, location, data) ->
+  report = data.forecast.txt_forecast.forecastday[1]
   msg.send "#{report.title} in #{location}: #{report.fcttext} (#{formatted_ttl data})"
 
 send_radar = (msg, location, data) ->
