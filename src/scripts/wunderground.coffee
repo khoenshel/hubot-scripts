@@ -36,7 +36,7 @@ module.exports = (robot) ->
     location = msg.match[2]
     get_data robot, msg, location, 'webcams', location.replace(/\s/g, '_'), send_webcam, 60*30
 
-  robot.respond /tomorrow (me|at|for|in)? ?(.*)$/i, (msg) ->
+  robot.respond /forecast (me|at|for|in)? ?(.*)$/i, (msg) ->
     location = msg.match[2]
     get_data robot, msg, location, 'tomorrow', location.replace(/\s/g, '_'), send_webcam, 60*30
 
