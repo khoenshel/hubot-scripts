@@ -38,7 +38,7 @@ module.exports = (robot) ->
 
   robot.respond /forecast (me|at|for|in)? ?(.*)$/i, (msg) ->
     location = msg.match[2]
-    get_data robot, msg, location, 'tomorrow', location.replace(/\s/g, '_'), send_webcam, 60*30
+    get_data robot, msg, location, 'tomorrow', location.replace(/\s/g, '_'), send_tomorrow, 60*30
 
 # check cache, get data, store data, invoke callback.
 get_data = (robot, msg, location, service, query, cb, lifetime, stack=0) ->
